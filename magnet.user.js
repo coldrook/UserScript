@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         magnet
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  query the web pages all magnet link
 // @author       You
 // @match http://*/*
@@ -23,8 +23,8 @@
     }
     // qbittorrent 淡蓝色 (Light Sky Blue) RGB: 135, 206, 250,  RGBA: rgba(135, 206, 250, 0.5) 透明度 50%
     var qb_lightblue_rgba = 'rgba(135, 206, 250, 0.5)';
-    // transmission 灰色 (Light Gray) RGB: 211, 211, 211, RGBA: rgba(211, 211, 211, 0.8) 透明度 40%  <--  修改为 40% 透明度 (这里其实可以保持 80%，直接修改下面 opacity 属性更清晰)
-    var trans_gray_rgba = 'rgba(211, 211, 211, 0.8)';
+    // transmission 灰色 (Light Gray) RGB: 211, 211, 211, RGBA: rgba(211, 211, 211, 0.2) 透明度 20%  <--  修改为 20% 透明度
+    var trans_gray_rgba = 'rgba(211, 211, 211, 0.2)'; // 这里颜色值保持不变，只是透明度会通过 opacity 属性调整
     // transmission 红色 (Firebrick) RGB: 178, 34, 34, RGBA: rgba(178, 34, 34, 0.8) 透明度 80%
     var trans_red_rgba = 'rgba(178, 34, 34, 0.8)';
 
@@ -67,7 +67,7 @@
         divObj.style.zIndex = "999";
         divObj.style.background = trans_gray_rgba; // 修改为 transmission 灰色
         divObj.style.border = "2px solid " + trans_red_rgba; // 添加 transmission 红色边框
-        divObj.style.opacity = "0.4";  //  <-----  修改为 40% 透明度
+        divObj.style.opacity = "0.2";  //  <-----  修改为 20% 透明度
         divObj.style.display = "block";
         divObj.style.whiteSpace = "normal"; // 允许换行
         divObj.style.boxShadow = "0px 0px 8px 8px " + trans_gray_rgba; // 阴影颜色也改为 transmission 灰色，更协调
