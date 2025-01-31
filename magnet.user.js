@@ -23,8 +23,8 @@
     }
     // qbittorrent 淡蓝色 (Light Sky Blue) RGB: 135, 206, 250,  RGBA: rgba(135, 206, 250, 0.5) 透明度 50%
     var qb_lightblue_rgba = 'rgba(135, 206, 250, 0.5)';
-    // transmission 灰色 (Light Gray) RGB: 211, 211, 211, RGBA: rgba(211, 211, 211, 0.1) 透明度 10%
-    var trans_gray_rgba = 'rgba(211, 211, 211, 0.1)'; // 这里颜色值保持不变，只是透明度会通过 opacity 属性调整
+    // transmission 灰色 (Light Gray) RGB: 211, 211, 211, RGBA: rgba(211, 211, 211, 0.2) 透明度 20%
+    var trans_gray_rgba = 'rgba(211, 211, 211, 0.2)'; // 这里颜色值保持不变，只是透明度会通过 opacity 属性调整
     // transmission 红色 (Firebrick) RGB: 178, 34, 34, RGBA: rgba(178, 34, 34, 0.8) 透明度 80%
     var trans_red_rgba = 'rgba(178, 34, 34, 0.8)';
 
@@ -67,7 +67,7 @@
         divObj.style.zIndex = "999";
         divObj.style.background = trans_gray_rgba; // 修改为 transmission 灰色
         divObj.style.border = "2px solid " + trans_red_rgba; // 添加 transmission 红色边框
-        divObj.style.opacity = "0.8";  //  <-----  修改为 80% 透明度
+        divObj.style.opacity = "0.2";  //  <-----  修改为 20% 透明度
         divObj.style.display = "block";
         divObj.style.whiteSpace = "normal"; // 允许换行
         divObj.style.boxShadow = "0px 0px 8px 8px " + trans_gray_rgba; // 阴影颜色也改为 transmission 灰色，更协调
@@ -120,7 +120,7 @@
                 copyToClipboard(magnetLink);
                 // 可以添加一些复制成功的视觉反馈，例如按钮文字变化
                 this.textContent = '已复制';
-                setTimeout(() => { this.textContent = '复制'; }, 1500); // 1.5秒后恢复
+                setTimeout(() => { this.textContent = '复制'; }, 1500); // 1.5秒后恢复  
             });
         });
 
