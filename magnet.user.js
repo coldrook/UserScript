@@ -42,7 +42,7 @@
     divObj.style.margin = "auto";
     divObj.style.borderRadius = "8px";
     divObj.style.zIndex = "1888";
-    divObj.style.boxShadow = "0px 0px 8px 8px " + trans_gray_rgba; // 按钮阴影保持 transmission 灰色
+    divObj.style.boxShadow = "0px 0px 8px 8px " + qb_lightblue_rgba; // 按钮背景保持 qbittorrent 淡蓝色
     divObj.style.backgroundColor = qb_lightblue_rgba; // 按钮背景保持 qbittorrent 淡蓝色
     divObj.style.color = "#ffffff"; // 按钮文字颜色保持白色，更醒目
     document.body.appendChild(divObj);
@@ -70,7 +70,7 @@
         divObj.style.opacity = "0.9";  //  <-----  弹出窗口透明度改为 90%
         divObj.style.display = "block";
         divObj.style.whiteSpace = "normal"; // 允许换行
-        divObj.style.boxShadow = "0px 0px 8px 8px " + qb_lightblue_rgba; // 阴影颜色保持 qbittorrent 淡蓝色，更协调
+        divObj.style.boxShadow = "0px 0px 8px 8px " + trans_gray_rgba; // 阴影颜色保持 transmission 灰色，更协调
         divObj.style.borderRadius = "10px";
         divObj.addEventListener("dblclick",
                                 function() {
