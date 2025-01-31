@@ -1,14 +1,13 @@
 // ==UserScript==
 // @name         magnet
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      0.5
 // @description  query the web pages all magnet link
 // @author       You
-// @match        https://fc2club.top/
 // @match http://*/*
 // @match https://*/*
 // @license GPL
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=fc2club.top
+// @icon         https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/qbittorrent-logo.png
 // @grant        none
 // ==/UserScript==
 
