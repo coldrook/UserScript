@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         剪贴板磁链提取器
-// @namespace    http://your-namespace.com
+// @namespace    https://github.com/coldrook/UserScript
 // @version      1.0
 // @description  从剪贴板中提取磁力链接并在页面上显示，方便下载
 // @author       Your Name
