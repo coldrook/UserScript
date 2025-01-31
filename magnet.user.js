@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         magnet
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  query the web pages all magnet link
 // @author       You
 // @match        https://fc2club.top/
@@ -24,13 +24,13 @@
     }
     // qbittorrent 淡蓝色 (Light Sky Blue) RGB: 135, 206, 250,  RGBA: rgba(135, 206, 250, 0.5) 透明度 50%
     var qb_lightblue_rgba = 'rgba(135, 206, 250, 0.5)';
-    // transmission 灰色 (Light Gray) RGB: 211, 211, 211, RGBA: rgba(211, 211, 211, 0.8) 透明度 80%
+    // transmission 灰色 (Light Gray) RGB: 211, 211, 211, RGBA: rgba(211, 211, 211, 0.8) 透明度 40%  <--  修改为 40% 透明度 (这里其实可以保持 80%，直接修改下面 opacity 属性更清晰)
     var trans_gray_rgba = 'rgba(211, 211, 211, 0.8)';
     // transmission 红色 (Firebrick) RGB: 178, 34, 34, RGBA: rgba(178, 34, 34, 0.8) 透明度 80%
     var trans_red_rgba = 'rgba(178, 34, 34, 0.8)';
 
 
-    var orstr = "<img src='data:image/gif;base64,R0lGODlhEgAQAOeiAFwVF2cWF2QYGYEdHYIeHnsmJ3ctOQpJggtRjC1LgQ5Uj0NHaj9HeQtVlC9Oew1Yl6EzNAddlQ9bnA1cn6w0NAtdoQtfl641NlBQUQtfpQxfpLM2NlJSU7g3N7Y4NxlgoYBISLo4OLs4OZpBVAVpo7s6OlhYWFpaWn9Ocb5BQbxDQoZTU2FhYaxMTKFQUGNjY8JJSWRkZKlRUpVXVgF8wcJLSsFMS2ZmZiR1s6ZVVatUVQN/wwN/xMROTktukIZgYDtzpWpqagCDywGDy0B0lwKDzHlnZq5YWL5UVV5uiZtgYGtucm5ubkl5nnJxcXNzcxWJzlJ8k7phYHZ2dhuLznd3d9BeXcFkZHl5eSKNzXp6ent6ent7eyaQ0H19fY94echoaDiOvX5+fiqU1IGBgYCCg4KCgoODg4SEhHmGmTmWyjCY1oWFhdZuboaGhtlycZCKioyMjJqKio+Pj5KSkoqUm4mWnMKHhpSVl5mUlNyBgNuCgpeXl5mZmZqamp2cnZydoJ6enqCgoKKioqSkpKWkpKampuGXl6urq6ysrLCwsLGxsbW1tba2tre3t7i4uLm5ubu7u76+vr+/vsHBwcXFxcjIyMnKysrKys3Nzc/Pz9fX19nZ2dvb297e3uDg4OHh4ePj4////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////yH5BAEKAP8ALAAAAAASABAAAAj+AP8JHCjwSRk7ddBQIshwCZEwWdZ0ocJjARxMDP9FUTNmiJCPNFB42ACCEcEmUD6qxDEihMseKzwJ9FHk4w4SFhwY6OAyRAkkcf4R+pMGSAQEGjIwGFCgZwgrRv754aKIw4cKEzIkIBBAhEsYLb4kEiRoCgYNCiQ0OEBAgNcaKnTIGUSHTYwTD5LgieMEAIQQKWy4OESoTx8yN0wAEthoTh4lFyjI2HNHkaE4WF4E+kdHi6A4iRRtudJGzw+BN4JUEcjCTaJFfiJlAiMlhyWBoM5AQs1HzKBQnya9OVIoo0Avfvo84qTp0gxJxgUuYmLGUCdHbDZFJ4joDJ1KGQMBAgA7'>";
+    var orstr = "<img src='data:image/gif;base64,R0lGODlhEgAQAOeiAFwVF2cWF2QYGYEdHYIeHnsmJ3ctOQpJggtRjC1LgQ5Uj0NHaj9HeQtVlC9Oew1Yl6EzNAddlQ9bnA1cn6w0NAtdoQtfl641NlBQUQtfpQxfpLM2NlJSU7g3N7Y4NxlgoYBISLo4OLs4OZpBVAVpo7s6OlhYWFpaWn9Ocb5BQbxDQoZTU2FhYaxMTKFQUGNjY8JJSWRkZKlRUpVXVgF8wcJLSsFMS2ZmZiR1s6ZVVatUVQN/wwN/xMROTktukIZgYDtzpWpqagCDywGDy0B0lwKDzHlnZq5YWL5UVV5uiZtgYGtucm5ubkl5nnJxcXNzcxWJzlJ8k7phYHZ2dhuLznd3d9BeXcFkZHl5eSKNzXp6ent6ent7eyaQ0H19fY94echoaDiOvX5+fiqU1IGBgYCCg4KCgoODg4SEhHmGmTmWyjCY1oWFhdZuboaGhtlycZCKioyMjJqKio+Pj5KSkoqUm4mWnMKHhpSVl5mUlNyBgNuCgpeXl5mZmZqampzcnZydoJ6enqCgoKKioqSkpKWkpKampuGXl6urq6ysrLCwsLGxsbW1tba2tre3t7i4uLm5ubu7u76+vr+/vsHBwcXFxcjIyMnKysrKys3Nzc/Pz9fX19nZ2dvb297e3uDg4OHh4ePj4////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////yH5BAEKAP8ALAAAAAASABAAAAj+AP8JHCjwSRk7ddBQIshwCZEwWdZ0ocJjARxMDP9FUTNmiJCPNFB42ACCEcEmUD6qxDEihMseKzwJ9FHk4w4SFhwY6OAyRAkkcf4R+pMGSAQEGjIwGFCgZwgrRv754aKIw4cKEzIkIBBAhEsYLb4kEiRoCgYNCiQ0OEBAgNcaKnTIGUSHTYwTD5LgieMEAIQQKWy4OESoTx8yN0wAEthoTh4lFyjI2HNHkaE4WF4E+kdHi6A4iRRtudJGzw+BN4JUEcjCTaJFfiJlAiMlhyWBoM5AQs1HzKBQnya9OVIoo0Avfvo84qTp0gxJxgUuYmLGUCdHbDZFJ4joDJ1KGQMBAgA7'>";
     var nrstr = "<img src='data:image/gif;base64,R0lGODlhEgAQAOekAAlGVghMXQdNYQZecABgegBhe19QECdebVpTRGBVLGNUNFtWPGhWFWtZF21bFFtbW3BdFnRgGDtqdnleIgR5kXZiFntgJHdjFGNjY3hkFHllE3llFGVlZXplIAKBnAKCnUVyfGpqagGGo4hnKwGIpQCJplpydQ6Ikzt7jQCLqW5ubiKDkRGIlQCMqTR/h29vbxCJmnBwcACPqgiOmROLmINuVgCQrHJycmh1eVd7f3ZzcXR0dHt0ZACVrnZ2dgCWrwKWqJFxVI5zS3Z3dwCYsZV0OgqZpZZ4W595MJd4ZX5+fl+GlROeqqN8MqN8M4GBgQCluQaksHSIi4OEhYSEhKiAMqiAM4WFhYeFhIeHhwCvvImJiYqKirCFPrGGQoyMjI2NjbWHSLWGWo6Ojg6ywJeOhJCQkLeKS42Rk5GRkZKTkpOTk72NT4mYmb+OXJeXl6CWkZiYmJmYl8KRVZmZmaSXkp2dnZ6enmWvs0K6xaKhoJ6io0m6xaSkpKWlpaampqenp6ioqKmpqaqqqqurq6ysrLGxsbKysmvHzbOzs7W1tba2tri4uLm5ubq6ury8vL29vb6+vsHBwcTExMbGxsjIyMrKysrKy8zMzM/Q0NXV1dfX19vb29zc3OPj4+Tk5Obm5ujo6O3t7fDw8P///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////yH5BAEKAP8ALAAAAAASABAAAAj+AP8JHChwCJY6cLhUIshQRxAxYeac8dIEAZpMDP8lccPGiscqSEyQECEBEsEjXTyqLIIihUsiIDwJrFHFo5MRFhQcKOEyRQsgav4NClRGyAQGGTQsIDCgZwooOP75ufLoQYcLFTQkKCCgZw8YUg4VKvTkwYYGERwYKBDA5Q8ZNNoIsmMmBgcIPOSs8QGAQgobPVYg+nPnz5cbGPQIdERnz5IPHljwwaOIUBwqL/r8u1zoDSNIU5hoyZNDoIodSgSGSNMokh9Km6IYOYFJIKgtkQTG6LOl0ChRl8jMCJRRIBVAfyZ94qTJhaTiAhftGGMolCQwnaATTJTljaWMAQEAOw=='>";
     var divObj = document.createElement("div");
     divObj.id = "magbtn";
@@ -68,7 +68,7 @@
         divObj.style.zIndex = "999";
         divObj.style.background = trans_gray_rgba; // 修改为 transmission 灰色
         divObj.style.border = "2px solid " + trans_red_rgba; // 添加 transmission 红色边框
-        divObj.style.opacity = "0.8"; // 设置透明度为 80%
+        divObj.style.opacity = "0.4";  //  <-----  修改为 40% 透明度
         divObj.style.display = "block";
         divObj.style.whiteSpace = "normal"; // 允许换行
         divObj.style.boxShadow = "0px 0px 8px 8px " + trans_gray_rgba; // 阴影颜色也改为 transmission 灰色，更协调
