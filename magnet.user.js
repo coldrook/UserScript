@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         magnet
 // @namespace    http://tampermonkey.net/
-// @version      0.9
+// @version      0.91
 // @description  query the web pages all magnet link
 // @author       You
 // @match http://*/*
