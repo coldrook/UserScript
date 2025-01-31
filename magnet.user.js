@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         magnet
 // @namespace    http://tampermonkey.net/
-// @version      0.7
+// @version      0.8
 // @description  query the web pages all magnet link
 // @author       You
 // @match http://*/*
@@ -95,11 +95,11 @@
                 let magnetListHTML = "<div style='padding: 10px;'>"; // 添加 padding
                 magnetLinks.forEach(magnet => {
                     magnetListHTML += `<div style='margin-bottom: 5px; display: flex; align-items: center; justify-content: space-between;'>
-                                         <span style='word-wrap: break-word; word-break: break-all; margin-right: 10px; color: #333;'>${magnet}</span>  <!-- 磁力链接文字颜色改为深灰色 -->
-                                         <button class='copy-btn' data-magnet='${magnet}' style='padding: 5px 10px; border-radius: 5px; background-color: #f0f0f0; border: 1px solid #ccc; cursor: pointer;'>复制</button>
+                                         <span style='word-wrap: break-word; word-break: break-all; margin-right: 10px; color: #000;'>${magnet}</span>  <!-- 磁力链接文字颜色改为黑色 -->
+                                         <button class='copy-btn' data-magnet='${magnet}' style='padding: 5px 10px; border-radius: 5px; background-color: #e0e0e0; border: 1px solid #ccc; cursor: pointer;'>复制</button>
                                       </div>`;
                 });
-                magnetListHTML += `<button id='copyAllButton' style='margin-top: 10px; padding: 8px 15px; border-radius: 5px; background-color: #e0e0e0; border: 1px solid #bbb; cursor: pointer;'>全部复制</button></div>`; // "全部复制" 按钮
+                magnetListHTML += `<button id='copyAllButton' style='margin-top: 10px; padding: 8px 15px; border-radius: 5px; background-color: #d0d0d0; border: 1px solid #bbb; cursor: pointer;'>全部复制</button></div>`; // "全部复制" 按钮
                 document.getElementById("showmagnet").innerHTML = magnetListHTML;
                 document.getElementById("magbtn").innerHTML = nrstr;
             } else {
