@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         magnet
 // @namespace    http://tampermonkey.net/
-// @version      0.8
+// @version      0.9
 // @description  query the web pages all magnet link
 // @author       You
 // @match http://*/*
@@ -95,7 +95,7 @@
                 let magnetListHTML = "<div style='padding: 10px;'>"; // 添加 padding
                 magnetLinks.forEach(magnet => {
                     magnetListHTML += `<div style='margin-bottom: 5px; display: flex; align-items: center; justify-content: space-between;'>
-                                         <span style='word-wrap: break-word; word-break: break-all; margin-right: 10px; color: #000;'>${magnet}</span>  <!-- 磁力链接文字颜色改为黑色 -->
+                                         <span style='word-wrap: break-word; word-break: break-all; margin-right: 10px; color: #000; font-size: 1.2em;'>${magnet}</span>  <!-- 磁力链接文字颜色改为黑色，字体大小增加 20% -->
                                          <button class='copy-btn' data-magnet='${magnet}' style='padding: 5px 10px; border-radius: 5px; background-color: #e0e0e0; border: 1px solid #ccc; cursor: pointer;'>复制</button>
                                       </div>`;
                 });
