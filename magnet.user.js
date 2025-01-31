@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         magnet
 // @namespace    http://tampermonkey.net/
-// @version      0.95
+// @version      0.96
 // @description  query the web pages all magnet link
 // @author       You
 // @match http://*/*
@@ -42,7 +42,7 @@
     divObj.style.margin = "auto";
     divObj.style.borderRadius = "8px";
     divObj.style.zIndex = "1888";
-    divObj.style.boxShadow = "0px 0px 8px 8px " + qb_lightblue_rgba; // 按钮阴影保持 qbittorrent 淡蓝色
+    divObj.style.boxShadow = "0px 0px 8px 8px " + trans_gray_rgba; // 按钮阴影保持 transmission 灰色
     divObj.style.backgroundColor = qb_lightblue_rgba; // 按钮背景保持 qbittorrent 淡蓝色
     divObj.style.color = "#ffffff"; // 按钮文字颜色保持白色，更醒目
     document.body.appendChild(divObj);
