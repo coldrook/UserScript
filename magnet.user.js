@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         get-magnet
+// @name         magnet
 // @namespace    http://tampermonkey.net/
-// @version      0.38.5
+// @version      0.2
 // @description  query the web pages all magnet link
 // @author       You
 // @match        https://fc2club.top/
