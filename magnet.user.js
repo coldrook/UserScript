@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         magnet
 // @namespace    http://tampermonkey.net/
-// @version      0.92
+// @version      0.93
 // @description  query the web pages all magnet link
 // @author       You
 // @match http://*/*
@@ -67,7 +67,7 @@
         divObj.style.zIndex = "999";
         divObj.style.background = qb_lightblue_rgba; // 修改为 qbittorrent 淡蓝色  <----  修改为淡蓝色
         divObj.style.border = "2px solid " + trans_red_rgba; // 添加 transmission 红色边框
-        divObj.style.opacity = "0.8";  //  <-----  透明度保持 80%
+        divObj.style.opacity = "0.2";  //  <-----  透明度保持 80%
         divObj.style.display = "block";
         divObj.style.whiteSpace = "normal"; // 允许换行
         divObj.style.boxShadow = "0px 0px 8px 8px " + qb_lightblue_rgba; // 阴影颜色也改为 qbittorrent 淡蓝色，更协调  <----  修改为淡蓝色
