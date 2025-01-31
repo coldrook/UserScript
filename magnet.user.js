@@ -23,8 +23,8 @@
     }
     // qbittorrent 淡蓝色 (Light Sky Blue) RGB: 135, 206, 250,  RGBA: rgba(135, 206, 250, 0.5) 透明度 50%
     var qb_lightblue_rgba = 'rgba(135, 206, 250, 0.5)';
-    // transmission 灰色 (Light Gray) RGB: 211, 211, 211, RGBA: rgba(211, 211, 211, 0.2) 透明度 20%  <--  修改为 20% 透明度
-    var trans_gray_rgba = 'rgba(211, 211, 211, 0.2)'; // 这里颜色值保持不变，只是透明度会通过 opacity 属性调整
+    // transmission 灰色 (Light Gray) RGB: 211, 211, 211, RGBA: rgba(211, 211, 211, 0.1) 透明度 10%
+    var trans_gray_rgba = 'rgba(211, 211, 211, 0.1)'; // 这里颜色值保持不变，只是透明度会通过 opacity 属性调整
     // transmission 红色 (Firebrick) RGB: 178, 34, 34, RGBA: rgba(178, 34, 34, 0.8) 透明度 80%
     var trans_red_rgba = 'rgba(178, 34, 34, 0.8)';
 
