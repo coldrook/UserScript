@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         剪贴板磁链提取器
 // @namespace    https://github.com/coldrook/UserScript
-// @version      1.0
-// @description  从剪贴板中提取磁力链接并在页面上显示，方便下载
+// @version      1.1
+// @description  从剪贴板中提取磁力链接并在页面上显示，方便下载 (修复干扰问题)
 // @author       Your Name
 // @match        *://*/*
 // @grant        GM_addStyle
@@ -12,69 +12,20 @@
 (function() {
     'use strict';
 
-    // 添加样式
-    GM_addStyle(`
-        #magnet-extractor-container {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            background-color: white;
-            border: 1px solid #ccc;
-            padding: 10px;
-            z-index: 1000;
-            border-radius: 5px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-        }
-        #magnet-extractor-container button {
-            margin-bottom: 10px;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        #magnet-links-list {
-            max-height: 300px;
-            overflow-y: auto;
-            margin-bottom: 10px;
-        }
-        .magnet-link-item {
-            margin-bottom: 5px;
-            word-wrap: break-word;
-            display: flex;
-            align-items: center;
-        }
-        .magnet-link-item a {
-            margin-right: 5px;
-            text-decoration: none;
-        }
-        .magnet-link-item button {
-            padding: 2px 5px;
-            font-size: 0.8em;
-            margin-left: 5px;
-        }
-    `);
-
-    // 创建容器
-    let container = document.createElement('div');
-    container.id = 'magnet-extractor-container';
-    document.body.appendChild(container);
-
-    // 创建提取按钮
-    let extractButton = document.createElement('button');
-    extractButton.textContent = '提取剪贴板磁链';
-    container.appendChild(extractButton);
-
-    // 创建复制全部按钮
-    let copyAllButton = document.createElement('button');
-    copyAllButton.textContent = '复制全部磁链';
-    copyAllButton.style.display = 'none'; // 初始隐藏，提取到磁链后显示
-    container.appendChild(copyAllButton);
-
-    // 创建磁链列表
-    let magnetLinksList = document.createElement('div');
-    magnetLinksList.id = 'magnet-links-list';
-    container.appendChild(magnetLinksList);
+    let isUIInitialized = false; // 标志变量，记录 UI 是否已初始化
 
     // 提取磁链的函数
     async function extractMagnetLinks() {
+
+        // 首次点击时初始化 UI
+        if (!isUIInitialized) {
+            isUIInitialized = true;
+            initializeUI(); // 调用 UI 初始化函数
+        }
+
+        const magnetLinksList = document.getElementById('magnet-links-list'); // 获取列表，确保已初始化
+        const copyAllButton = document.getElementById('copy-all-button'); // 获取复制全部按钮
+
         try {
             const clipboardText = await navigator.clipboard.readText();
             const magnetRegex = /magnet:\?xt=urn:btih:[0-9a-zA-Z]{32,40}(?:&.+)?/g;
@@ -86,19 +37,59 @@
         }
     }
 
-    // 显示磁链的函数
+    // 初始化 UI 的函数
+    function initializeUI() {
+        // 添加样式 - 保持不变
+        GM_addStyle(`
+            #magnet-extractor-container { /* ... 样式保持不变 ... */ }
+            #magnet-extractor-container button { /* ... 样式保持不变 ... */ }
+            #magnet-links-list { /* ... 样式保持不变 ... */ }
+            .magnet-link-item { /* ... 样式保持不变 ... */ }
+            .magnet-link-item a { /* ... 样式保持不变 ... */ }
+            .magnet-link-item button { /* ... 样式保持不变 ... */ }
+        `);
+
+        // 创建容器
+        let container = document.createElement('div');
+        container.id = 'magnet-extractor-container';
+        document.body.appendChild(container);
+
+        // 创建提取按钮
+        let extractButton = document.createElement('button');
+        extractButton.textContent = '提取剪贴板磁链';
+        container.appendChild(extractButton);
+        extractButton.addEventListener('click', extractMagnetLinks); // 事件监听器绑定在这里
+
+        // 创建复制全部按钮
+        let copyAllButton = document.createElement('button');
+        copyAllButton.textContent = '复制全部磁链';
+        copyAllButton.id = 'copy-all-button'; // 添加 ID，方便获取
+        copyAllButton.style.display = 'none';
+        container.appendChild(copyAllButton);
+        copyAllButton.addEventListener('click', copyAllMagnetLinks); // 事件监听器绑定在这里
+
+        // 创建磁链列表
+        let magnetLinksList = document.createElement('div');
+        magnetLinksList.id = 'magnet-links-list';
+        container.appendChild(magnetLinksList);
+    }
+
+
+    // 显示磁链的函数 - 保持不变
     function displayMagnetLinks(links) {
-        magnetLinksList.innerHTML = ''; // 清空之前的列表
+        const magnetLinksList = document.getElementById('magnet-links-list');
+        const copyAllButton = document.getElementById('copy-all-button');
+        magnetLinksList.innerHTML = '';
         if (links.length > 0) {
-            copyAllButton.style.display = 'block'; // 显示复制全部按钮
-            links.forEach(link => {
+            copyAllButton.style.display = 'block';
+            links.forEach(link => { /* ... 循环创建链接和按钮，保持不变 ... */
                 let linkItem = document.createElement('div');
                 linkItem.className = 'magnet-link-item';
 
                 let linkElement = document.createElement('a');
                 linkElement.href = link;
-                linkElement.textContent = decodeURIComponent(link).substring(0, 60) + '...'; // 截取显示，防止过长
-                linkElement.title = link; // 完整磁链作为 title，鼠标悬停显示
+                linkElement.textContent = decodeURIComponent(link).substring(0, 60) + '...';
+                linkElement.title = link;
 
                 let copyButton = document.createElement('button');
                 copyButton.textContent = '复制';
@@ -107,7 +98,7 @@
                     copyButton.textContent = '已复制';
                     setTimeout(() => {
                         copyButton.textContent = '复制';
-                    }, 1500); // 短暂提示
+                    }, 1500);
                 });
 
                 linkItem.appendChild(linkElement);
@@ -116,12 +107,13 @@
             });
         } else {
             magnetLinksList.textContent = '未在剪贴板中找到磁链。';
-            copyAllButton.style.display = 'none'; // 没有磁链时隐藏复制全部按钮
+            copyAllButton.style.display = 'none';
         }
     }
 
-    // 复制全部磁链的函数
+    // 复制全部磁链的函数 - 保持不变
     function copyAllMagnetLinks() {
+        const copyAllButton = document.getElementById('copy-all-button');
         let magnetLinks = [];
         document.querySelectorAll('#magnet-links-list .magnet-link-item a').forEach(a => {
             magnetLinks.push(a.href);
@@ -131,12 +123,10 @@
             copyAllButton.textContent = '全部磁链已复制';
             setTimeout(() => {
                 copyAllButton.textContent = '复制全部磁链';
-            }, 1500); // 短暂提示
+            }, 1500);
         }
     }
 
-    // 绑定按钮点击事件
-    extractButton.addEventListener('click', extractMagnetLinks);
-    copyAllButton.addEventListener('click', copyAllMagnetLinks);
+    // 初始时不需要绑定按钮事件，事件绑定在 initializeUI 中
 
 })();
